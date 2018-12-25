@@ -24,6 +24,13 @@ let config = {
                 include: APP_DIR,
                 exclude:/(node_modules)/,
                 loader: 'babel-loader',
+                query: {
+                    presets: [
+                        // A Babel preset that can automatically determine the Babel plugins and polyfills
+                        'stage-0',
+                        'react',
+                    ]
+                }
             },
             {
                 test: /\.(png|jpg|gif|ico)$/,
