@@ -1,0 +1,65 @@
+{
+  "name": "reactapp",
+  "version": "1.0.0",
+  "description": "node, express, react, todo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js --exec babel-node",
+    "dev": "webpack -d --watch ",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lata2694/reactTodo.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "js",
+    "react",
+    "sort",
+    "todo",
+    "webpack",
+    "hotloader"
+  ],
+  "author": "lata tiwari",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lata2694/reactTodo/issues"
+  },
+  "homepage": "https://github.com/lata2694/reactTodo#readme",
+  "dependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-recharts": "^1.1.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "body-parser": "^1.17.2",
+    "css-loader": "^0.28.4",
+    "express": "^4.15.3",
+    "firebase": "^4.1.3",
+    "html-webpack-plugin": "^2.30.1",
+    "node-sass": "^4.5.3",
+    "nodemailer": "^4.0.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-toastr": "^2.8.2",
+    "recharts": "^1.0.0-alpha.2",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "url-loader": "^0.5.9",
+    "webpack": "^3.2.0",
+    "webpack-dev-middleware": "^1.11.0",
+    "webpack-hot-middleware": "^2.18.2"
+  },
+  "devDependencies": {
+    "isomorphic-style-loader": "^3.0.0",
+    "nodemon": "^1.11.0",
+    "postcss-loader": "^2.0.6",
+    "react-hot-loader": "^1.3.1",
+    "webpack-dev-server": "^2.5.1"
+  }
+}
