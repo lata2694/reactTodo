@@ -4,10 +4,12 @@
 let mongoose = require('mongoose');
 let schema = mongoose.Schema;
 
-let todo = new schema ({
+let Todo = new schema ({
     date: String,
     title: String,
     content: String,
 });
 
-module.exports = mongoose.model('todo',todo);
+
+
+module.exports = mongoose.model('todo',Todo);

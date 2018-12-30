@@ -4,8 +4,13 @@
 
 import express from 'express';
 let router = express.Router();
-import query from './query.js'
+import services from './query.js'
 
-router.post('/submit', query.addtodo);
+router.get('/', services.gettodo);
+router.get('/submit', services.gettodo);
+router.get('/sort', services.sorttodo);
+router.post('/submit', services.addtodo);
+router.post('/edit', services.edittodo);
+router.delete('/remove', services.deletetodo);
 
 export default router;
