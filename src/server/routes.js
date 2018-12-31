@@ -7,10 +7,10 @@ let router = express.Router();
 import services from './query.js'
 
 router.get('/', services.gettodo);
-router.get('/submit', services.gettodo);
+// router.get('/submit', services.gettodo);
 router.get('/sort', services.sorttodo);
 router.post('/submit', services.addtodo);
-router.post('/edit', services.edittodo);
+router.put('/edit', services.edittodo);
 router.delete('/remove', services.deletetodo);
 
 export default router;

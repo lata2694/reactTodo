@@ -25,11 +25,11 @@ app.use( require( 'webpack-hot-middleware')( compiler ));
 
 app.use( bodyParser() );
 
-app.use('/', router);
+app.get ( '/', ( req, res, next ) => {
+    // res.sendFile(__dirname+'/dist/main.js');
+    res.sendFile(__dirname+'/src/client/app');
+});
 
-// app.use ( '/', ( req, res, next ) => {
-//     // res.sendFile(__dirname+'/dist/main.js');
-//     res.sendFile(__dirname+'/src/client/app');
-// });
+app.use('/api', router);
 
 app.listen(process.env.PORT || port, ()=> console.log("app started"));

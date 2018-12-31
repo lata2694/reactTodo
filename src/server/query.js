@@ -74,15 +74,14 @@ const deletetodo = (request, reponse) => {
 
 const edittodo = (request, reponse) => {
     "use strict";
-    let payload;
+    let payload = {};
     if (request.body.date) {
-        payload[date] = request.body.date;
+        payload['date'] = request.body.date;
     } if (request.body.title) {
-        payload[title] = request.body.title;
+        payload['title'] = request.body.title;
     } if (request.body.content) {
-        payload[content] = request.body.content;
+        payload['content'] = request.body.content;
     }
-    console.log("payload = ",payload);
     if (payload) {
         Todo.updateOne(payload,(error, data) => {
             if (error) {

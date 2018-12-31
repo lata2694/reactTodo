@@ -9,10 +9,13 @@ const AddToDo = ( props ) => {
     const {
         onChangeHandler,
         addToDo,
-        item,
+        title,
+        date,
+        content,
         editingToDo,
         underEdit,
-        cancelEdit
+        cancelEdit,
+        id
     } = props
 
     return (
@@ -25,16 +28,16 @@ const AddToDo = ( props ) => {
                             : null
                     }
                     <div>
-                        <input type="date" name="date" placeholder="date" onChange={onChangeHandler} value={item && item.date}/>
-                        <input type="text" name="title" placeholder="title" onChange={onChangeHandler} value={item && item.title} required/>
-                        <input type="text" name="content" placeholder="content" onChange={onChangeHandler} value={item && item.content}/>
+                        <input type="date" name="date" placeholder="date" onChange={onChangeHandler} value={date}/>
+                        <input type="text" name="title" placeholder="title" onChange={onChangeHandler} value={title} required/>
+                        <input type="text" name="content" placeholder="content" onChange={onChangeHandler} value={content}/>
                     </div>
                 </div>
                 {
-                    item ?
+                    id ?
                         <div style={{display: 'inline-block'}}>
-                            <button onClick={()=>editingToDo(item._id)}>Update</button>
-                            <button onClick={()=>cancelEdit(item._id)}>cancel</button>
+                            <button onClick={(event)=>{event.preventDefault(); return editingToDo(id)}}>Update</button>
+                            <button onClick={()=>cancelEdit(id)}>cancel</button>
                         </div>
                         : <button onClick={addToDo} style={underEdit >= 0 ? {pointerEvents: 'none', cursor: 'not-allowed'}: {}}>Add</button>
                 }

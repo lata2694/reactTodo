@@ -42,7 +42,7 @@ class App extends Component {
             content: this.state.content
         }
 
-        fetch('/submit',
+        fetch('/api/submit',
             { method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -51,7 +51,10 @@ class App extends Component {
                 body:JSON.stringify( payload )
             })
             .then ( (data)=> {
-                    this.setState({saveMsg: 'Saved '+this.state.title},()=>{
+                    this.setState({saveMsg: 'Saved '+this.state.title,
+                                    date: '',
+                                    title: '',
+                                    content: ''},()=>{
                         this.setState(prevState => ({
                             todoList: [...prevState.todoList, payload],
                         }))
@@ -65,7 +68,7 @@ class App extends Component {
     }
 
     showToDo = () => {
-        this.fetchToDos('/submit');
+        this.fetchToDos('/api');
     }
 
     deleteToDo = (id, index, title) => {
@@ -76,7 +79,7 @@ class App extends Component {
             title: title
         };
 
-        fetch('/remove',
+        fetch('/api/remove',
             { method: 'delete',
             headers: {
                 'Accept': 'application/json',
@@ -100,7 +103,7 @@ class App extends Component {
     }
 
     sortToDo = () => {
-        this.fetchToDos('/sort');
+        this.fetchToDos('/api/sort');
     }
 
     fetchToDos = (url) => {
@@ -126,8 +129,9 @@ class App extends Component {
         let editableToDo = todoList.find((item) => {
             return item._id === id;
         });
+        let item = todoList.indexOf(editableToDo);
         if (todoList.indexOf(editableToDo) > -1)
-            this.setState({currentEdit : todoList.indexOf(editableToDo)});
+            this.setState({currentEdit : todoList.indexOf(editableToDo), title: todoList[item].title, date:todoList[item].date, content:todoList[item].content});
     }
 
     cancelEdit = (id) => {
@@ -136,26 +140,21 @@ class App extends Component {
     }
 
     editingToDo = (id) => {
-        event.preventDefault();
-        event.stopPropagation();
-
-        console.log('id = ',id);
-
         let payload = {};
         if (this.state.date) {
-            payload[date] = this.state.date;
+            payload['date'] = this.state.date && this.state.date;
         } if (this.state.title) {
-            payload[title] = this.state.title;
+            payload['title'] = this.state.title && this.state.title;
         } if (this.state.content) {
-            payload[content] = this.state.content;
+            payload['content'] = this.state.content && this.state.content;
         }
 
         if (Object.keys(payload).length === 0) {
             return;
         } else {
-            payload[id] = id;
-            fetch('/edit',
-                { method: 'POST',
+            payload['id'] = id;
+            fetch('/api/edit',
+                { method: 'PUT',
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
@@ -164,10 +163,10 @@ class App extends Component {
                     body: JSON.stringify(payload)
                 })
                 .then(( data ) => {
-                    console.log('-------data = ',data);
+                    return data.json();
                 })
                 .then((json)=>{
-                    console.log('=====json = ',json);
+                    this.setState({currentEdit : -1});
                 })
                 .catch( (err)=> {
                     console.log("some error", err);
@@ -180,17 +179,21 @@ class App extends Component {
             saveMsg,
             todoList,
             deletionMsg,
-            currentEdit
+            currentEdit,
+            title,
+            date,
+            content
         } = this.state
-
         const listToDos = todoList.map((item, index)=>{
             let finalArray = [];
             if ( currentEdit == index ) {
                 finalArray.push(
                     <AddToDo onChangeHandler={this.onChangeHandler}
                              editingToDo={this.editingToDo}
-                             item={item}
-                             index={index}
+                             title={title}
+                             date={date}
+                             content={content}
+                             id={item._id}
                              cancelEdit={this.cancelEdit}/>
                 )
             } else {
@@ -211,7 +214,9 @@ class App extends Component {
         return (
             <div>
                 <div>{saveMsg}</div>
-                <AddToDo onChangeHandler={this.onChangeHandler} addToDo={this.addToDo} underEdit={currentEdit}/>
+                <AddToDo onChangeHandler={this.onChangeHandler}
+                         addToDo={this.addToDo}
+                         underEdit={currentEdit}/>
                 <div>{deletionMsg}</div>
                 <button onClick={this.sortToDo} style={currentEdit >= 0 ? {pointerEvents: 'none'}: {}}>Sort</button>
                 <ul>
