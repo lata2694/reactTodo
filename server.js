@@ -26,7 +26,6 @@ app.use( require( 'webpack-hot-middleware')( compiler ));
 app.use( bodyParser() );
 
 app.get ( '/', ( req, res, next ) => {
-    // res.sendFile(__dirname+'/dist/main.js');
     res.sendFile(__dirname+'/src/client/app');
 });
 

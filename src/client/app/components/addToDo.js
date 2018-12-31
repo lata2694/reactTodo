@@ -37,7 +37,7 @@ const AddToDo = ( props ) => {
                     id ?
                         <div style={{display: 'inline-block'}}>
                             <button onClick={(event)=>{event.preventDefault(); return editingToDo(id)}}>Update</button>
-                            <button onClick={()=>cancelEdit(id)}>cancel</button>
+                            <button onClick={(event)=>{event.preventDefault(); return cancelEdit(id)}}>cancel</button>
                         </div>
                         : <button onClick={addToDo} style={underEdit >= 0 ? {pointerEvents: 'none', cursor: 'not-allowed'}: {}}>Add</button>
                 }

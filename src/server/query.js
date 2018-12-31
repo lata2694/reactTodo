@@ -83,7 +83,7 @@ const edittodo = (request, reponse) => {
         payload['content'] = request.body.content;
     }
     if (payload) {
-        Todo.updateOne(payload,(error, data) => {
+        Todo.find({_id: request.body.id}).updateOne(payload,(error, data) => {
             if (error) {
                 console.log('Error in updation');
             } else {
